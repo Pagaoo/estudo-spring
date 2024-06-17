@@ -34,4 +34,11 @@ public class CustomerController {
         logger.info("[CustomerController] getting all customers");
         return customerService.getAllCustomers();
     }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Customer getCustomerById(@PathVariable("id") @RequestParam Long id) {
+        logger.info("[CustomerController] getting customer by id: {}", id);
+        return customerService.getCustomerById(id);
+    }
 }

@@ -25,6 +25,11 @@ public class CustomerService {
     }
 
 
+    public Customer getCustomerById(Long id) {
+        logger.info("[Customer Service] getting customer by id: {}", id);
+        return customerRepository.findById(id).orElse(null);
+    }
+
     public Customer CreateCustomer(CustomerDto customerDto) {
         Customer newCustomer = new Customer(customerDto);
         return customerRepository.save(newCustomer);
