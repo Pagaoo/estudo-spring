@@ -8,6 +8,7 @@ import pagao.deliciasdovovo.entities.Customer;
 import pagao.deliciasdovovo.repositories.CustomerRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerService {
@@ -25,13 +26,13 @@ public class CustomerService {
     }
 
 
-    public Customer getCustomerById(Long id) {
+    public Optional<Customer> getCustomerById(Long id) throws Exception {
         logger.info("[Customer Service] getting customer by id: {}", id);
-        return customerRepository.findById(id).orElse(null);
+        return customerRepository.findById(id);
     }
 
     public Customer CreateCustomer(CustomerDto customerDto) {
-        Customer newCustomer = new Customer(customerDto);
-        return customerRepository.save(newCustomer);
+            Customer newCustomer = new Customer(customerDto);
+            return customerRepository.save(newCustomer);
     }
 }
