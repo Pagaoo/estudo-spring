@@ -42,7 +42,7 @@ public class TransactionService {
         Customer sender = this.customerService.getCustomerById(transactionDto.sender_id());
         Customer receiver = this.customerService.getCustomerById(transactionDto.receiver_id());
 
-        customerService.validateTransaction(sender, transactionDto.value());
+        customerService.validateTransaction(sender, receiver, transactionDto.value());
 
 
         Transaction newTransaction = new Transaction();

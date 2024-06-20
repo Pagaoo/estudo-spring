@@ -43,10 +43,14 @@ public class CustomerService {
         return customerRepository.save(newCustomer);
     }
 
-    public void validateTransaction(Customer sender, BigDecimal transactionValue) throws Exception {
+    public void validateTransaction(Customer sender, Customer receiver, BigDecimal transactionValue) throws Exception {
         logger.info("[Customer Service] Checking if a customer can make a transaction");
         if (sender.getUserType() == UserType.LOJA) {
             throw new Exception("LOJAS não podem fazer transações de compra");
+        }
+
+        if (sender.getUserType() == UserType.COMUM && receiver.getUserType() == UserType.COMUM) {
+            throw new Exception("Usuários comuns não podem fazer transações entre si");
         }
 
         if (sender.getBalance().compareTo(transactionValue) < 0 ) {
