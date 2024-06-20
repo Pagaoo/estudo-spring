@@ -34,7 +34,7 @@ public class Customer {
     private String phone;
     @Enumerated(EnumType.STRING)
     private UserType userType;
-    private BigDecimal amount;
+    private BigDecimal balance;
 
     public Customer(CustomerDto customerDto) {
         this.firstName = customerDto.firstName();
@@ -42,6 +42,6 @@ public class Customer {
         this.email = customerDto.email();
         this.phone = customerDto.phone();
         this.userType = customerDto.userType();
-        this.amount = customerDto.amount();
+        this.balance = customerDto.balance();
     }
 }
