@@ -24,14 +24,21 @@ public class TransactionService {
     }
 
     public List<Transaction> getAllTransactions() {
+        logger.info("[Transaction Service] Get all transactions");
         return transactionRepository.findAll();
     }
 
-    public Optional<Transaction> getTransactionById(Long id) {
-        return transactionRepository.findById(id);
+    public Transaction findTransactionById(Long id) throws Exception {
+        logger.info("[Transaction Service] Get transaction by id: {}", id);
+        try {
+            return transactionRepository.findTransactionById(id);
+        } catch (Exception e) {
+            throw new Exception("Transaction não encontrada");
+        }
     }
 
     public Transaction saveTransaction(TransactionDto transactionDto) throws Exception {
+        logger.info("[Transaction Service] Saving transaction: {}", transactionDto);
         Customer sender = this.customerService.getCustomerById(transactionDto.sender_id());
         Customer receiver = this.customerService.getCustomerById(transactionDto.receiver_id());
 
@@ -50,7 +57,7 @@ public class TransactionService {
         this.transactionRepository.save(newTransaction);
         this.customerService.saveCustomer(sender);
         this.customerService.saveCustomer(receiver);
+
         return newTransaction;
     }
-
 }

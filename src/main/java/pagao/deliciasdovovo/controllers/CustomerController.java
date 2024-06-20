@@ -10,7 +10,6 @@ import pagao.deliciasdovovo.entities.Customer;
 import pagao.deliciasdovovo.services.CustomerService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController()
 @RequestMapping("/customers")
@@ -39,7 +38,7 @@ public class CustomerController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Customer getCustomerById(@PathVariable("id") @RequestParam Long id) throws Exception {
-        logger.info("[CustomerController] getting customer by id");
+        logger.info("[CustomerController] getting customer by id {}", id);
         return customerService.getCustomerById(id);
     }
 }
