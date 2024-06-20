@@ -6,4 +6,5 @@ import pagao.deliciasdovovo.entities.Customer;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
+    Customer getCustomerById(Long id);
 }
