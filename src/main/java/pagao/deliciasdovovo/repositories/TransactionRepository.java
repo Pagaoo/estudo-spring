@@ -6,4 +6,5 @@ import pagao.deliciasdovovo.entities.Transaction;
 
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
+    Transaction findTransactionById(Long id);
 }

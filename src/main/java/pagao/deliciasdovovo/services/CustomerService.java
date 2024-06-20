@@ -27,28 +27,40 @@ public class CustomerService {
     }
 
 
-    public Customer getCustomerById(Long id) {
+    public Customer getCustomerById(Long id) throws Exception {
         logger.info("[Customer Service] getting customer by id: {}", id);
-        return customerRepository.getCustomerById(id);
+        try {
+            return customerRepository.getCustomerById(id);
+        } catch (Exception e) {
+            throw new Exception("Cliente não encontrado");
+        }
+
     }
 
     public Customer CreateCustomer(CustomerDto customerDto) {
-            Customer newCustomer = new Customer(customerDto);
-            return customerRepository.save(newCustomer);
+        logger.info("[Customer Service] creating customer: {}", customerDto);
+        Customer newCustomer = new Customer(customerDto);
+        return customerRepository.save(newCustomer);
     }
 
     public void validateTransaction(Customer sender, BigDecimal transactionValue) throws Exception {
+        logger.info("[Customer Service] Checking if a customer can make a transaction");
         if (sender.getUserType() == UserType.LOJA) {
-            logger.info("[Customer Service] Checking if user type can make a transaction");
             throw new Exception("LOJAS não podem fazer transações de compra");
         }
 
         if (sender.getBalance().compareTo(transactionValue) < 0 ) {
-            throw new Exception("Valor insuficiente para realizar transação");
+            throw new Exception("Valor insuficiente para realizar a transação");
         }
     }
 
-    public Customer saveCustomer(Customer customer) {
-        return this.saveCustomer(customer);
+    public Customer saveCustomer(Customer customer) throws Exception {
+        try {
+            logger.info("[Customer Service] saving customer");
+            return customerRepository.save(customer);
+        } catch (Exception e) {
+            logger.error("Erro ao salvar cliente");
+            throw new Exception("Erro ao salvar o cliente");
+        }
     }
 }

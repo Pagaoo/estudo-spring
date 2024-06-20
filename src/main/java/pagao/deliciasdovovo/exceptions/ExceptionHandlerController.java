@@ -13,4 +13,10 @@ public class ExceptionHandlerController {
         ExcpetionDto excpetionDto = new ExcpetionDto("Usuário já possui cadastro", "400");
         return ResponseEntity.badRequest().body(excpetionDto);
     }
+
+    @ExceptionHandler
+    public ResponseEntity generalException(Exception ex) {
+        ExcpetionDto excpetionDto = new ExcpetionDto(ex.getMessage(), "500");
+        return ResponseEntity.internalServerError().body(excpetionDto);
+    }
 }
