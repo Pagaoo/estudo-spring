@@ -29,11 +29,12 @@ public class TransactionService {
 
     public Transaction findTransactionById(long id) throws Exception {
         logger.info("[Transaction Service] Get transaction by id: {}", id);
-        try {
-            return transactionRepository.findTransactionById(id);
-        } catch (Exception e) {
-            throw new Exception("Transação não encontrada");
+        Transaction transaction = transactionRepository.findTransactionById(id);
+        if (transaction == null) {
+            logger.error("[Transaction Service] Transaction with id: {} not found", id);
+            throw new Exception("Transaction not found");
         }
+        return transaction;
     }
 
     public Transaction saveTransaction(TransactionDTO transactionDto) throws Exception {

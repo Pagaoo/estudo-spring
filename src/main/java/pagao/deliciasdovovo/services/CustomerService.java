@@ -29,16 +29,16 @@ public class CustomerService {
 
     public Customer getCustomerById(long id) throws Exception {
         logger.info("[Customer Service] getting customer by id: {}", id);
-        try {
-            return customerRepository.getCustomerById(id);
-        } catch (Exception e) {
-            throw new Exception("Cliente não encontrado");
+        Customer customer = customerRepository.getCustomerById(id);
+        if (customer == null) {
+            logger.error("[Customer Service] Customer with id: {} not found", id);
+            throw new Exception("Customer with id " + id + " not found");
         }
-
+        return customer;
     }
 
     public Customer CreateCustomer(CustomerDTO customerDto) {
-        logger.info("[Customer Service] creating customer: {}", customerDto);
+        logger.info("[Customer Service] creating customer");
         Customer newCustomer = new Customer(customerDto);
         return customerRepository.save(newCustomer);
     }
