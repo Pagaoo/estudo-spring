@@ -27,8 +27,13 @@ public class TransactionService {
         return transactionRepository.findAll();
     }
 
-    public Optional<Transaction> getTransactionById(Long id) {
-        return transactionRepository.findById(id);
+    public Transaction findTransactionById(Long id) throws Exception {
+        try {
+            return transactionRepository.findTransactionById(id);
+        } catch (Exception e) {
+            throw new Exception("Transação não encontrada");
+        }
+
     }
 
     public Transaction saveTransaction(TransactionDto transactionDto) throws Exception {
