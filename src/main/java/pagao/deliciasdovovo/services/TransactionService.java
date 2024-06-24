@@ -27,7 +27,7 @@ public class TransactionService {
         return transactionRepository.findAll();
     }
 
-    public Transaction findTransactionById(Long id) throws Exception {
+    public Transaction findTransactionById(long id) throws Exception {
         logger.info("[Transaction Service] Get transaction by id: {}", id);
         try {
             return transactionRepository.findTransactionById(id);

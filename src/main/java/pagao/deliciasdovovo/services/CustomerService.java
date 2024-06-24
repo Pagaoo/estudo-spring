@@ -27,7 +27,7 @@ public class CustomerService {
     }
 
 
-    public Customer getCustomerById(Long id) throws Exception {
+    public Customer getCustomerById(long id) throws Exception {
         logger.info("[Customer Service] getting customer by id: {}", id);
         try {
             return customerRepository.getCustomerById(id);
