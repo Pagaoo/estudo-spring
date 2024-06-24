@@ -10,6 +10,7 @@ import pagao.deliciasdovovo.repositories.TransactionRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionService {
@@ -22,9 +23,18 @@ public class TransactionService {
         this.customerService = customerService;
     }
 
-    public List<Transaction> getAllTransactions() {
+    public List<TransactionDTO> getAllTransactions() {
         logger.info("[Transaction Service] Get all transactions");
-        return transactionRepository.findAll();
+        List<Transaction> transactions = transactionRepository.findAll();
+        if (transactions.isEmpty()) {
+            logger.error("[Transaction Service] No transactions found");
+            throw new RuntimeException("No transactions found");
+        }
+        //.stream() -> Convertendo a lista de transactions e uma sequencia de elementos STREAM
+        //Usando o map para se referir a função que converte as transactions para as transactionsDTO
+        //.collect -> Transformando os elementos STREAM de volta em coleção com o COLLECT
+        //Collectors.toList() -> E colocando os elementos em uma lista
+        return transactions.stream().map(this::convertTransactionToTransactionDTO).collect(Collectors.toList());
     }
 
     public TransactionDTO findTransactionById(long id) throws Exception {
