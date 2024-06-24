@@ -25,13 +25,12 @@ public class TransactionController {
     @ResponseStatus(HttpStatus.CREATED)
     public Transaction createTransaction(@RequestBody @Valid TransactionDTO transactionDto) throws Exception {
         logger.info("[TransactionController] creating a transaction between two customer");
-        Transaction newTransaction = this.transactionService.saveTransaction(transactionDto);
-        return newTransaction;
+        return this.transactionService.saveTransaction(transactionDto);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Transaction> getAllTransactions() {
+    public List<TransactionDTO> getAllTransactions() {
         logger.info("[TransactionController] getting all transactions");
         return transactionService.getAllTransactions();
     }
