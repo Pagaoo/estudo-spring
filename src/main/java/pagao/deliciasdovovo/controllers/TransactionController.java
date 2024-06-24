@@ -38,7 +38,7 @@ public class TransactionController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Transaction getTransaction(@PathVariable("id") @RequestParam Long id) throws Exception {
+    public TransactionDTO getTransaction(@PathVariable("id") @RequestParam Long id) throws Exception {
         logger.info("[TransactionController] getting transaction by id {}", id);
         return transactionService.findTransactionById(id);
     }

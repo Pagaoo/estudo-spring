@@ -25,11 +25,12 @@ public class ProductService {
 
     public Product getProductById(long id) throws Exception {
         logger.info("[Product Service] Get product by id: {}", id);
-        try {
-            return productRepository.findProductById(id);
-        } catch (Exception e) {
+        Product product = productRepository.findProductById(id);
+        if (product == null) {
+            logger.error("[Product Service] Product with id {} not found", id);
             throw new Exception("Produto não encontrado");
         }
+        return product;
     }
 
     public Product addProduct(ProductDTO productDTO) throws Exception {
