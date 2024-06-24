@@ -32,7 +32,7 @@ public class TransactionService {
         try {
             return transactionRepository.findTransactionById(id);
         } catch (Exception e) {
-            throw new Exception("Transaction não encontrada");
+            throw new Exception("Transação não encontrada");
         }
     }
 
