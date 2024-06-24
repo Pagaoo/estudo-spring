@@ -3,14 +3,13 @@ package pagao.deliciasdovovo.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import pagao.deliciasdovovo.dtos.TransactionDto;
+import pagao.deliciasdovovo.dtos.TransactionDTO;
 import pagao.deliciasdovovo.entities.Customer;
 import pagao.deliciasdovovo.entities.Transaction;
 import pagao.deliciasdovovo.repositories.TransactionRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TransactionService {
@@ -37,7 +36,7 @@ public class TransactionService {
         }
     }
 
-    public Transaction saveTransaction(TransactionDto transactionDto) throws Exception {
+    public Transaction saveTransaction(TransactionDTO transactionDto) throws Exception {
         logger.info("[Transaction Service] Saving transaction: {}", transactionDto);
         Customer sender = this.customerService.getCustomerById(transactionDto.sender_id());
         Customer receiver = this.customerService.getCustomerById(transactionDto.receiver_id());

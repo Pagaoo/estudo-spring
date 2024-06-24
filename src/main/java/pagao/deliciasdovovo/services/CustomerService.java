@@ -3,7 +3,7 @@ package pagao.deliciasdovovo.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import pagao.deliciasdovovo.dtos.CustomerDto;
+import pagao.deliciasdovovo.dtos.CustomerDTO;
 import pagao.deliciasdovovo.entities.Customer;
 import pagao.deliciasdovovo.enums.UserType;
 import pagao.deliciasdovovo.repositories.CustomerRepository;
@@ -37,7 +37,7 @@ public class CustomerService {
 
     }
 
-    public Customer CreateCustomer(CustomerDto customerDto) {
+    public Customer CreateCustomer(CustomerDTO customerDto) {
         logger.info("[Customer Service] creating customer: {}", customerDto);
         Customer newCustomer = new Customer(customerDto);
         return customerRepository.save(newCustomer);
