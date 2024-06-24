@@ -5,14 +5,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import pagao.deliciasdovovo.dtos.CustomerDto;
+import pagao.deliciasdovovo.dtos.CustomerDTO;
 import pagao.deliciasdovovo.entities.Customer;
 import pagao.deliciasdovovo.services.CustomerService;
 
 import java.util.List;
-import java.util.Optional;
 
-@RestController()
+@RestController
 @RequestMapping("/customers")
 public class CustomerController {
     private final Logger logger = LoggerFactory.getLogger(CustomerService.class);
@@ -24,7 +23,7 @@ public class CustomerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Customer createCustomer(@RequestBody @Valid CustomerDto customerDto) {
+    public Customer createCustomer(@RequestBody @Valid CustomerDTO customerDto) {
         logger.info("[CustomerController] creating customer]");
         return customerService.CreateCustomer(customerDto);
     }
@@ -39,7 +38,7 @@ public class CustomerController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Customer getCustomerById(@PathVariable("id") @RequestParam Long id) throws Exception {
-        logger.info("[CustomerController] getting customer by id");
+        logger.info("[CustomerController] getting customer by id {}", id);
         return customerService.getCustomerById(id);
     }
 }

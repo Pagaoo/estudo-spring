@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pagao.deliciasdovovo.dtos.CustomerDto;
+import pagao.deliciasdovovo.dtos.CustomerDTO;
 import pagao.deliciasdovovo.enums.UserType;
 
 import java.math.BigDecimal;
@@ -36,7 +36,7 @@ public class Customer {
     private UserType userType;
     private BigDecimal balance;
 
-    public Customer(CustomerDto customerDto) {
+    public Customer(CustomerDTO customerDto) {
         this.firstName = customerDto.firstName();
         this.lastName = customerDto.lastName();
         this.email = customerDto.email();

@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import pagao.deliciasdovovo.dtos.TransactionDto;
+import pagao.deliciasdovovo.dtos.TransactionDTO;
 import pagao.deliciasdovovo.entities.Transaction;
 import pagao.deliciasdovovo.services.TransactionService;
 
@@ -23,7 +23,7 @@ public class TransactionController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Transaction createTransaction(@RequestBody @Valid TransactionDto transactionDto) throws Exception {
+    public Transaction createTransaction(@RequestBody @Valid TransactionDTO transactionDto) throws Exception {
         logger.info("[TransactionController] creating a transaction between two customer");
         Transaction newTransaction = this.transactionService.saveTransaction(transactionDto);
         return newTransaction;
