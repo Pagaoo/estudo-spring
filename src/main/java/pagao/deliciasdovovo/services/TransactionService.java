@@ -27,14 +27,14 @@ public class TransactionService {
         return transactionRepository.findAll();
     }
 
-    public Transaction findTransactionById(long id) throws Exception {
+    public TransactionDTO findTransactionById(long id) throws Exception {
         logger.info("[Transaction Service] Get transaction by id: {}", id);
         Transaction transaction = transactionRepository.findTransactionById(id);
         if (transaction == null) {
             logger.error("[Transaction Service] Transaction with id: {} not found", id);
             throw new Exception("Transaction not found");
         }
-        return transaction;
+        return convertTransactionToTransactionDTO(transaction);
     }
 
     public Transaction saveTransaction(TransactionDTO transactionDto) throws Exception {
@@ -60,4 +60,14 @@ public class TransactionService {
 
         return newTransaction;
     }
+
+    private TransactionDTO convertTransactionToTransactionDTO(Transaction transaction) {
+        return new TransactionDTO(
+                transaction.getSender().getId(),
+                transaction.getReceiver().getId(),
+                transaction.getValue(),
+                transaction.getTransactionDate()
+        );
+    }
+
 }
