@@ -1,6 +1,7 @@
 package pagao.deliciasdovovo.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,11 +22,18 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
     private String name;
+    @NotBlank
     private String description;
+    @NotBlank
     private String productType;
+    @NotBlank
     private BigDecimal price;
+    @NotBlank
     private int quantity;
+    @NotBlank
+    private String productImage;
 
     public Product(ProductDTO productDTO) {
         this.name = productDTO.name();
@@ -33,6 +41,7 @@ public class Product {
         this.productType = productDTO.productType();
         this.price = productDTO.price();
         this.quantity = productDTO.quantity();
+        this.productImage = productDTO.productImage();
     }
 
     @Override
