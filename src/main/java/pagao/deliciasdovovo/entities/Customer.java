@@ -35,7 +35,9 @@ public class Customer {
     @Column(unique = true)
     private String phone;
     @Enumerated(EnumType.STRING)
+    @NotBlank
     private UserType userType;
+    @NotBlank
     private BigDecimal balance;
 
     public Customer(CustomerDTO customerDto) {
