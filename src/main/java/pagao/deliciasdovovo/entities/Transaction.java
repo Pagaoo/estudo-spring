@@ -1,7 +1,6 @@
 package pagao.deliciasdovovo.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,15 +23,11 @@ public class Transaction {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "sender_id")
-    @NotBlank
     private Customer sender;
     @ManyToOne
     @JoinColumn(name = "receiver_id")
-    @NotBlank
     private Customer receiver;
-    @NotBlank
     private BigDecimal value;
-    @NotBlank
     private LocalDateTime transactionDate;
 
     @Override
