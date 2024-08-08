@@ -25,16 +25,23 @@ public class Transaction {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "sender_id")
-    @NotBlank
+    @NotNull
     private Customer sender;
     @ManyToOne
     @JoinColumn(name = "receiver_id")
-    @NotBlank
+    @NotNull
     private Customer receiver;
     @NotNull
     private BigDecimal value;
     @NotNull
     private LocalDateTime transactionDate;
+
+    public Transaction(Customer sender, Customer receiver, BigDecimal value, LocalDateTime transactionDate) {
+        this.sender = sender;
+        this.receiver = receiver;
+        this.value = value;
+        this.transactionDate = transactionDate;
+    }
 
     @Override
     public final boolean equals(Object o) {
