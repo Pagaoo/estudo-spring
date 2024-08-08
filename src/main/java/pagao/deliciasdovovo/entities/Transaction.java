@@ -2,6 +2,7 @@ package pagao.deliciasdovovo.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,9 +31,9 @@ public class Transaction {
     @JoinColumn(name = "receiver_id")
     @NotBlank
     private Customer receiver;
-    @NotBlank
+    @NotNull
     private BigDecimal value;
-    @NotBlank
+    @NotNull
     private LocalDateTime transactionDate;
 
     @Override
