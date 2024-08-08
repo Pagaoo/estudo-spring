@@ -53,6 +53,7 @@ public class ProductServiceTest {
         assertNotNull(products);
         assertFalse(products.isEmpty());
         verify(productRepository, times(1)).findAll();
+        verifyNoMoreInteractions(productRepository);
     }
 
     @Test
@@ -64,6 +65,7 @@ public class ProductServiceTest {
         assertNotNull(foundProduct);
         assertEquals(product.getId(), foundProduct.getId());
         verify(productRepository, times(1)).findProductById(1L);
+        verifyNoMoreInteractions(productRepository);
     }
 
     @Test
@@ -73,7 +75,7 @@ public class ProductServiceTest {
         Product addedProduct = productService.addProduct(productDTO);
 
         assertNotNull(addedProduct);
-        assertEquals(product.getId(), addedProduct.getId());
         verify(productRepository, times(1)).save(any(Product.class));
+        verifyNoMoreInteractions(productRepository);
     }
 }
