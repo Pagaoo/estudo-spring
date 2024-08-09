@@ -15,9 +15,6 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -61,13 +58,13 @@ public class CustomerServiceTest {
 
     @Test
     void getCustomerById() throws Exception {
-        when(customerRepository.getCustomerById(1L)).thenReturn(customer);
+        when(customerRepository.getCustomerById(customer.getId())).thenReturn(customer);
 
-        Customer foundCustomer = customerService.getCustomerById(1L);
+        Customer foundCustomer = customerService.getCustomerById(customer.getId());
         assertNotNull(foundCustomer);
-        assertFalse(foundCustomer.getId() != 1L);
+        assertFalse(foundCustomer.getId() != customer.getId());
         assertEquals(customer.getId(), foundCustomer.getId());
-        verify(customerRepository, times(1)).getCustomerById(1L);
+        verify(customerRepository, times(1)).getCustomerById(customer.getId());
         verifyNoMoreInteractions(customerRepository);
     }
 
