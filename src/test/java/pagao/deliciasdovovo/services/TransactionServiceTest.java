@@ -91,16 +91,16 @@ public class TransactionServiceTest {
 
     @Test
     void getTransactionById() throws Exception {
-        when(transactionRepository.findTransactionById(1L)).thenReturn(transaction);
+        when(transactionRepository.findTransactionById(transaction.getId())).thenReturn(transaction);
 
-        TransactionDTO foundTransaction = transactionService.findTransactionById(1L);
+        TransactionDTO foundTransaction = transactionService.findTransactionById(transaction.getId());
         assertNotNull(foundTransaction);
         assertEquals(transactionDTO.value(), foundTransaction.value());
         assertEquals(transactionDTO.transactionDate(), foundTransaction.transactionDate());
         assertEquals(transactionDTO.sender_id(), foundTransaction.sender_id());
         assertEquals(transactionDTO.receiver_id(), foundTransaction.receiver_id());
         assertEquals(transactionDTO.receiver_id(), foundTransaction.receiver_id());
-        verify(transactionRepository, times(1)).findTransactionById(1L);
+        verify(transactionRepository, times(1)).findTransactionById(transaction.getId());
         verifyNoMoreInteractions(transactionRepository);
     }
 
