@@ -13,9 +13,11 @@ import pagao.deliciasdovovo.enums.UserType;
 import pagao.deliciasdovovo.services.CustomerService;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -46,6 +48,7 @@ public class CustomerControllerTest {
                 new BigDecimal("100.58")
         );
 
+
         customer = new Customer(customerDTO);
         customer.setId(1L);
     }
@@ -68,5 +71,22 @@ public class CustomerControllerTest {
                 .andExpect(jsonPath("$.balance").value("100.58"));
 
         verify(customerService).CreateCustomer(customerDTO);
+    }
+
+    @Test
+    void getAllCustomersTest() throws Exception {
+        when(customerService.getAllCustomers()).thenReturn(Arrays.asList(customer));
+
+        mockMvc.perform(get("/customers"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").value(1))
+                .andExpect(jsonPath("$[0].firstName").value("Roger"))
+                .andExpect(jsonPath("$[0].lastName").value("Roberto"))
+                .andExpect(jsonPath("$[0].email").value("roger@example.com"))
+                .andExpect(jsonPath("$[0].phone").value("999999999"))
+                .andExpect(jsonPath("$[0].userType").value(UserType.COMUM.toString()))
+                .andExpect(jsonPath("$[0].balance").value("100.58"));
+
+        verify(customerService).getAllCustomers();
     }
 }
