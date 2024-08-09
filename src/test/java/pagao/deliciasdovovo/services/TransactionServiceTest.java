@@ -18,8 +18,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,6 +29,9 @@ public class TransactionServiceTest {
 
     @Mock
     private TransactionRepository transactionRepository;
+
+    @Mock
+    private CustomerService customerService;
 
     private Transaction transaction;
     private TransactionDTO transactionDTO;
@@ -85,5 +87,41 @@ public class TransactionServiceTest {
         assertFalse(transactions.isEmpty());
         verify(transactionRepository, times(1)).findAll();
         verifyNoMoreInteractions(transactionRepository);
+    }
+
+    @Test
+    void getTransactionById() throws Exception {
+        when(transactionRepository.findTransactionById(1L)).thenReturn(transaction);
+
+        TransactionDTO foundTransaction = transactionService.findTransactionById(1L);
+        assertNotNull(foundTransaction);
+        assertEquals(transactionDTO.value(), foundTransaction.value());
+        assertEquals(transactionDTO.transactionDate(), foundTransaction.transactionDate());
+        assertEquals(transactionDTO.sender_id(), foundTransaction.sender_id());
+        assertEquals(transactionDTO.receiver_id(), foundTransaction.receiver_id());
+        assertEquals(transactionDTO.receiver_id(), foundTransaction.receiver_id());
+        verify(transactionRepository, times(1)).findTransactionById(1L);
+        verifyNoMoreInteractions(transactionRepository);
+    }
+
+    @Test
+    void createTransaction() throws Exception {
+        when(customerService.getCustomerById(sender.getId())).thenReturn(sender);
+        when(customerService.getCustomerById(receiver.getId())).thenReturn(receiver);
+
+        doNothing().when(customerService).validateTransaction(sender, receiver, transactionDTO.value());
+
+        when(transactionRepository.save(any(Transaction.class))).thenReturn(transaction);
+
+        when(customerService.saveCustomer(any(Customer.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        Transaction createdTransaction = transactionService.saveTransaction(transactionDTO);
+
+        assertNotNull(createdTransaction);
+        verify(transactionRepository, times(1)).save(any(Transaction.class));
+        verify(customerService, times(2)).getCustomerById(anyLong());
+        verify(customerService, times(1)).validateTransaction(sender, receiver, transactionDTO.value());
+        verify(customerService, times(2)).saveCustomer(any(Customer.class));
+        verifyNoMoreInteractions(transactionRepository, customerService);
     }
 }
