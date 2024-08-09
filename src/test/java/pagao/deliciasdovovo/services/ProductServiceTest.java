@@ -58,13 +58,13 @@ public class ProductServiceTest {
 
     @Test
     void getProductById() throws Exception {
-        when(productRepository.findProductById(1L)).thenReturn(product);
+        when(productRepository.findProductById(product.getId())).thenReturn(product);
 
-        Product foundProduct = productService.getProductById(1L);
+        Product foundProduct = productService.getProductById(product.getId());
 
         assertNotNull(foundProduct);
         assertEquals(product.getId(), foundProduct.getId());
-        verify(productRepository, times(1)).findProductById(1L);
+        verify(productRepository, times(1)).findProductById(product.getId());
         verifyNoMoreInteractions(productRepository);
     }
 
